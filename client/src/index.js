@@ -1,26 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
+
+import './resources/bootstrap.min.css';
 import './index.css';
+import {Homepage} from './homepage/homepage';
+import {Authentication} from './authentication/authentication';
 
-class Meme extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      meme: true
-    };
-  }
-
-  render() {
-    return (
-      <div className="meme">
+export default function App() {
+  return (
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/authentication" component={Authentication} />
+          <Route path="/" component={Homepage} />
+        </Switch>
       </div>
-    );
-  }
+    </Router>
+  );
 }
 
 ReactDOM.render(
-    <Meme />,
+    <App />,
     document.getElementById('root')
 );
