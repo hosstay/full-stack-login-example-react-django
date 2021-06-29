@@ -1,0 +1,18 @@
+  # use latest version of nodejs
+  FROM node:lts-alpine
+  
+  RUN npm i -g nodemon
+  
+  # set working directory to code
+  # henceforth all commands will run inside this folder
+  WORKDIR /code
+  
+  # copy package.json related files first and install all required dependencies
+  COPY package*.json ./
+  RUN npm install
+  
+  # copy the rest of files and folders & install dependencies
+  COPY . ./
+
+  EXPOSE 3000
+  CMD ["nodemon", "server"]

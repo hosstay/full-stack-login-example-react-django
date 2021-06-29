@@ -1,0 +1,21 @@
+# use latest version of nodejs
+FROM node:lts-alpine
+
+# set working directory to code
+# henceforth all commands will run inside this folder
+WORKDIR /code
+
+# add `/code/node_modules/.bin` to $PATH
+ENV PATH /code/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY package*.json ./
+RUN npm install
+RUN npm install react-scripts@3.4.1 -g
+
+# copy in rest of files
+COPY . ./
+
+# start app
+EXPOSE 8080
+CMD ["npm", "start"]
