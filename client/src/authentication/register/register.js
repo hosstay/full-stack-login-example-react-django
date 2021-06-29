@@ -17,8 +17,10 @@ export default class Register extends AuthenticationRoute {
     this.goToLogin = props.goToLogin;
   }
 
-  async registerSubmit() {
+  async registerSubmit(e) {
     try {
+      e.preventDefault();
+
       let cleanUsername = '';
       let cleanPassword = '';
 
@@ -31,7 +33,7 @@ export default class Register extends AuthenticationRoute {
 
       if (cleanUsername !== '' && cleanPassword !== '') {
         if (this.state.password === this.state.confirmPassword) {
-          await this.userApi.addUser(cleanUsername, cleanPassword);
+          await this.userApi.addUser(cleanUsername, cleanPassword, this.goToLogin);
         } else {
           document.getElementById('error-text').innerHTML = 'Password and Confirm Password did not match.';
         }
@@ -46,29 +48,29 @@ export default class Register extends AuthenticationRoute {
     return (
       <div>
         <img id="background-img" src={this.backgroundImg} alt="Icy River"></img>
-        <div id="register-div">
+        <form id="register-div" onSubmit={(e) => this.registerSubmit(e)}>
           <label id="title">Test Website</label>
           <br />
           <br />
 
           <label>Username:</label>
-          <input id="username" type="text" className="float-right" onChange={(event) => this.handleChange(event)}></input>
+          <input id="username" type="text" className="float-right" autoComplete="username" onChange={(event) => this.handleChange(event)}></input>
           <br />
           <br />
 
           <label>Password:</label>
-          <input id="password" type="password" className="float-right" onChange={(event) => this.handleChange(event)}></input>
+          <input id="password" type="password" className="float-right" autoComplete="new-password" onChange={(event) => this.handleChange(event)}></input>
           <br />
           <br />
 
           <div id="confirm-password-div">
             <label >Confirm Password:</label>
-            <input id="confirm-password" type="password" className="float-right" onChange={(event) => this.handleChange(event)}></input>
+            <input id="confirm-password" type="password" className="float-right" autoComplete="new-password" onChange={(event) => this.handleChange(event)}></input>
             <br className="clear"/>
             <br />
           </div>
 
-          <input id="submit-button" type="button" className="float-right" value="Submit" onClick={() => this.registerSubmit()}></input>
+          <input id="submit-button" type="submit" className="float-right" value="Submit"></input>
           <input id="login-button" type="button" className="float-left" value="Login" onClick={this.goToLogin}></input>
           <br />
           <br />
@@ -76,7 +78,7 @@ export default class Register extends AuthenticationRoute {
           <p id="error-text"></p>
           <br />
           <br />
-        </div>
+        </form>
       </div>
     );
   }

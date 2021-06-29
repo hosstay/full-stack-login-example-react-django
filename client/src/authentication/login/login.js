@@ -17,8 +17,9 @@ export default class Login extends AuthenticationRoute {
     this.goToHomepage = props.goToHomepage;
   }
 
-  async loginSubmit() {
+  async loginSubmit(e) {
     try {
+      e.preventDefault();
       const cleanUsername = this.sanitizeLogin(this.state.username, 'username', 6, 32);
       const cleanPassword = this.sanitizeLogin(this.state.password, 'password', 8, 18);
 
@@ -33,22 +34,22 @@ export default class Login extends AuthenticationRoute {
     return (
       <div>
         <img id="background-img" src={this.backgroundImg} alt="Icy River"></img>
-        <div id="login-div">
+        <form id="login-div" onSubmit={(e) => this.loginSubmit(e)}>
           <label id="title">Test Website</label>
           <br />
           <br />
 
           <label>Username:</label>
-          <input id="username" type="text" className="float-right" value={this.state.username} onChange={(event) => this.handleChange(event)}></input>
+          <input id="username" type="text" className="float-right" autoComplete="username" value={this.state.username} onChange={(event) => this.handleChange(event)}></input>
           <br />
           <br />
 
           <label>Password:</label>
-          <input id="password" type="password" className="float-right" value={this.state.password} onChange={(event) => this.handleChange(event)}></input>
+          <input id="password" type="password" className="float-right" autoComplete="current-password" value={this.state.password} onChange={(event) => this.handleChange(event)}></input>
           <br />
           <br />
 
-          <input id="submit-button" type="button" className="float-right" value="Login" onClick={() => this.loginSubmit()}></input>
+          <input id="submit-button" type="submit" className="float-right" value="Login"></input>
           <input id="register-button" type="button" className="float-left" value="Register" onClick={this.goToRegister}></input>
           <br />
           <br />
@@ -56,7 +57,7 @@ export default class Login extends AuthenticationRoute {
           <p id="error-text"></p>
           <br />
           <br />
-        </div>
+        </form>
       </div>
     );
   }
