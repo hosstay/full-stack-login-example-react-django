@@ -31,7 +31,7 @@ export default class UserApi {
     }
   }
 
-  async addUser(user, pass) {
+  async addUser(user, pass, goToLogin) {
     try {
       const response = await this.dataLoader.httpFetch({
         prefix: 'api/user/',
@@ -49,7 +49,7 @@ export default class UserApi {
 
         await timeoutPromise(2000);
 
-        // return this.router.navigateToRoute('login');
+        goToLogin();
       } else {
         document.getElementById('error-text').innerHTML = response.msg;
       }
