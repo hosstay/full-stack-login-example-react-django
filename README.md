@@ -1,4 +1,4 @@
-# Full Stack Login Example
+# Login Example MERN
 
 An implementation of a website with login using MERN (Mongo, Express, React, Node) built in Docker
 
