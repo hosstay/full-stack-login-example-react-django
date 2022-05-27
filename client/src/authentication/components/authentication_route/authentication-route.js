@@ -15,6 +15,8 @@ export default class AuthenticationRoute extends React.Component {
   }
 
   handleChange(event) {
+    event = event || window.event;
+
     if (event.target.id === 'username') {
       this.setState({username: event.target.value});
     } else if (event.target.id === 'password') {
@@ -40,9 +42,11 @@ export default class AuthenticationRoute extends React.Component {
     const char = String.fromCharCode(event.keyCode || event.which);
 
     if (char.toUpperCase() === char && char.toLowerCase() !== char && !event.shiftKey) {
-      document.getElementById('error-text').innerHTML = 'Caps Lock is on.';
+      document.getElementById('login-error-text').innerHTML = 'Caps Lock is on.';
+      document.getElementById('login-error-text').style.display = 'block';
     } else {
-      document.getElementById('error-text').innerHTML = '';
+      document.getElementById('login-error-text').innerHTML = '';
+      document.getElementById('login-error-text').style.display = 'none';
     }
   }
 

@@ -13,6 +13,16 @@ function decrypt(data) {
   return result;
 }
 
+function getUsernameRegex() {
+  // Username field. 150 characters or fewer. Letters, digits, and @/./+/-/_ only
+  return RegExp(/^[\w \@\.\+\-]{0,150}$/);
+}
+
+function getPasswordRegex() {
+  // Password should have a minimum of 8 characters, at least 1 Lowercase Letter, 1 Uppercase Letter, 1 Number, and 1 Special Character.
+  return RegExp(/^^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[@#$%^&+*!=]).*$/);
+}
+
 /*
   input: the string to sanitize
   id: the field being sanitized
@@ -23,7 +33,7 @@ function sanitize(input, field, minLength, maxLength) {
   if (!input) {
     throw new Error('No input');
   } else {
-    if (input.length < minLength || input.length > maxLength) {
+    if (minLength && maxLength && (input.length < minLength || input.length > maxLength)) {
       throw new Error(`${field} must be between ${minLength} and ${maxLength} characters.`);
     } else {
       return encodeURIComponent(input);
@@ -35,31 +45,30 @@ function sanitize(input, field, minLength, maxLength) {
   An extension of sanitize for the login screen that checks
   if the username and password meet the requirements.
 */
-function sanitizeLogin(input, field, minLength, maxLength) {
+function sanitizeLogin(input, field) {
   let regex;
-  let errorMessage;
+  let errorMessage = 'Please enter a correct username and password. Note that both fields may be case-sensitive.';
 
   if (field === 'username') {
-    regex = RegExp(/^[\w ]+$/);
-    errorMessage = 'Username field should only contain alphanumeric characters, underscores, and spaces.';
+    regex = getUsernameRegex();
   } else if (field === 'password') {
-    regex = RegExp(/^(?=(?:\S*\d))(?=(?:\S*[A-Za-z]))(?=\S*[^A-Za-z0-9])\S{8,}/);
-    errorMessage = 'Password should have a minimum of 8 characters, at least 1 Uppercase Letter, 1 Lowercase Letter, 1 Number, and 1 Special Character.';
+    regex = getPasswordRegex();
   } else {
-    console.log('Field parameter must be username or password');
     throw new Error('Something went wrong');
   }
 
   if (!regex.test(input)) {
     throw new Error(errorMessage);
   } else {
-    return sanitize(input, field, minLength, maxLength);
+    return sanitize(input, field);
   }
 }
 
 export {
   encrypt,
   decrypt,
+  getUsernameRegex,
+  getPasswordRegex,
   sanitize,
   sanitizeLogin
 };

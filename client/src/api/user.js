@@ -18,13 +18,11 @@ export default class UserApi {
       });
 
       if (response.success) {
-        document.getElementById('error-text').innerHTML = 'You have successfully logged in.';
-
-        await timeoutPromise(2000);
+        document.getElementById('login-error-text').style.display = 'hidden';
 
         goToHomepage();
       } else {
-        document.getElementById('error-text').innerHTML = response.msg;
+        document.getElementById('login-error-text').innerHTML = response.msg;
       }
     } catch (err) {
       return errorHandler({err: err, context: 'logIn'});

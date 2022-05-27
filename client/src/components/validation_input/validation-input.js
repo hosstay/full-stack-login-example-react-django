@@ -48,7 +48,7 @@ export default class ValidationInput extends React.Component {
     } else {
       return (
         <div>
-          <input id={this.params.id} className={this.params.class} autoComplete={this.params.autoComplete}></input>
+          <input id={this.params.id} type={this.params.type} value={this.params.value} className={this.params.class} autoComplete={this.params.autoComplete}></input>
         </div>
       );
     }

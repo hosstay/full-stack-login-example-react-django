@@ -5,8 +5,8 @@ import ValidationInput from '../../../components/validation_input/validation-inp
 
 import {sanitize} from '../../../utility/security';
 import {
-  charLetterValidator,
-  pasteLetterValidator
+  charLetterRemoverValidator,
+  pasteLetterRemoverValidator
 } from '../../../components/validation_input/validators/validators';
 
 export default class NameForm extends React.Component {
@@ -18,8 +18,8 @@ export default class NameForm extends React.Component {
     this.name;
     this.nameValidators = {
       id: 'name',
-      onInput: charLetterValidator,
-      onPaste: pasteLetterValidator
+      onInput: charLetterRemoverValidator,
+      onPaste: pasteLetterRemoverValidator
     };
   }
 
