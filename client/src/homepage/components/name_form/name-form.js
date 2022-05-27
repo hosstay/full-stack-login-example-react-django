@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ValidationInput from './components/validation_input/validation-input';
+import ValidationInput from '../../../components/validation_input/validation-input';
 
 import {sanitize} from '../../../utility/security';
 import {
   charLetterValidator,
   pasteLetterValidator
-} from './components/validation_input/validators/validators';
+} from '../../../components/validation_input/validators/validators';
 
 export default class NameForm extends React.Component {
   constructor(props) {
