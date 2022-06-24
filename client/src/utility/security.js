@@ -25,19 +25,15 @@ function getPasswordRegex() {
 
 /*
   input: the string to sanitize
-  id: the field being sanitized
+  field: the field being sanitized
   minLength: the allowable minimum length of the string
   maxLength: the allowable maximum length of the string
 */
 function sanitize(input, field, minLength, maxLength) {
-  if (!input) {
-    throw new Error('No input');
+  if (minLength && maxLength && (input.length < minLength || input.length > maxLength)) {
+    throw new Error(`${field} must be between ${minLength} and ${maxLength} characters.`);
   } else {
-    if (minLength && maxLength && (input.length < minLength || input.length > maxLength)) {
-      throw new Error(`${field} must be between ${minLength} and ${maxLength} characters.`);
-    } else {
-      return encodeURIComponent(input);
-    }
+    return encodeURIComponent(input);
   }
 }
 
@@ -49,18 +45,22 @@ function sanitizeLogin(input, field) {
   let regex;
   let errorMessage = 'Please enter a correct username and password. Note that both fields may be case-sensitive.';
 
-  if (field === 'username') {
-    regex = getUsernameRegex();
-  } else if (field === 'password') {
-    regex = getPasswordRegex();
+  if (!input) {
+    throw new Error(`${field} Required`);
   } else {
-    throw new Error('Something went wrong');
-  }
-
-  if (!regex.test(input)) {
-    throw new Error(errorMessage);
-  } else {
-    return sanitize(input, field);
+    if (field === 'Username') {
+      regex = getUsernameRegex();
+    } else if (field === 'Password') {
+      regex = getPasswordRegex();
+    } else {
+      throw new Error('Something went wrong');
+    }
+  
+    if (!regex.test(input)) {
+      throw new Error(errorMessage);
+    } else {
+      return sanitize(input, field);
+    }
   }
 }
 

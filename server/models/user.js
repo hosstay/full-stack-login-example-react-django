@@ -9,8 +9,8 @@ const salt = bcrypt.genSaltSync(5);
 
 async function createUser(req, res) {
   try {
-    const cleanUsername = security.sanitize(req.body.username, 'username', 6, 32);
-    const cleanPassword = security.sanitize(req.body.password, 'password', 8, 18);
+    const cleanUsername = security.sanitize(req.body.username, 'Username', 6, 32);
+    const cleanPassword = security.sanitize(req.body.password, 'Password', 8, 18);
 
     const hashedPassword = bcrypt.hashSync(cleanPassword, salt);
 
@@ -33,8 +33,8 @@ async function createUser(req, res) {
 
 async function login(req, res) {
   try {
-    const cleanUsername = security.sanitize(req.body.username, 'username', 6, 32);
-    const cleanPassword = security.sanitize(req.body.password, 'password', 8, 18);
+    const cleanUsername = security.sanitize(req.body.username, 'Username', 6, 32);
+    const cleanPassword = security.sanitize(req.body.password, 'Password', 8, 18);
 
     const submittedPassword = cleanPassword;
 

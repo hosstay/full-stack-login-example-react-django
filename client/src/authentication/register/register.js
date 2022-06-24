@@ -25,8 +25,8 @@ export default class Register extends AuthenticationRoute {
       let cleanPassword = '';
 
       try {
-        cleanUsername = this.sanitizeLogin(this.state.username, 'username');
-        cleanPassword = this.sanitizeLogin(this.state.password, 'password');
+        cleanUsername = this.sanitizeLogin(this.state.username, 'Username');
+        cleanPassword = this.sanitizeLogin(this.state.password, 'Password');
       } catch (err) {
         document.getElementById('error-text').innerHTML = err.message;
       }

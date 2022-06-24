@@ -25,7 +25,7 @@ export default class NameForm extends React.Component {
 
   submit() {
     try {
-      const cleanInput = sanitize(document.getElementById(this.nameValidators.id).value, 'name', 0, 32);
+      const cleanInput = sanitize(document.getElementById(this.nameValidators.id).value, 'Name', 0, 32);
       document.getElementById('output').innerHTML = `${cleanInput} is awesome!`;
     } catch (err) {
       console.log(err);

@@ -28,8 +28,8 @@ export default class Login extends AuthenticationRoute {
   async loginSubmit(e) {
     try {
       e.preventDefault();
-      const cleanUsername = this.sanitizeLogin(this.state.username, 'username');
-      const cleanPassword = this.sanitizeLogin(this.state.password, 'password');
+      const cleanUsername = this.sanitizeLogin(this.state.username, 'Username');
+      const cleanPassword = this.sanitizeLogin(this.state.password, 'Password');
 
       await this.userApi.logIn(cleanUsername, cleanPassword, this.goToHomepage);
     } catch (err) {
